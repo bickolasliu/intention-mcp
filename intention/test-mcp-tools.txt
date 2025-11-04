@@ -1,0 +1,4 @@
+This is a test file created directly using the intention_write MCP tool.
+If this file is created AND there's a corresponding .intents/test-mcp-tools.txt.json file,
+then the MCP tools are working correctly.
+Created at: Tuesday, November 4, 2025
