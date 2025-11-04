@@ -1,0 +1,57 @@
+{
+  "name": "intention-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for tracking AI-assisted code changes and intents",
+  "main": "dist/index.js",
+  "bin": {
+    "intention-mcp": "./dist/index.js",
+    "intention-mcp-setup": "./dist/setup-cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "claude",
+    "cursor",
+    "intent",
+    "tracking",
+    "collaboration",
+    "ai",
+    "llm"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/intention-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/intention-mcp/issues"
+  },
+  "homepage": "https://github.com/yourusername/intention-mcp#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.21.0",
+    "@types/node": "^24.10.0",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.9.3",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5"
+  }
+}

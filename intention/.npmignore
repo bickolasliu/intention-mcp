@@ -1,0 +1,36 @@
+# Source files (TypeScript)
+src/
+*.ts
+!*.d.ts
+
+# Test files
+**/*.test.*
+**/*.spec.*
+__tests__/
+coverage/
+
+# Config files
+tsconfig.json
+jest.config.js
+.gitignore
+
+# Development files
+*.log
+.DS_Store
+node_modules/
+.env
+.env.*
+
+# Editor files
+.vscode/
+.idea/
+
+# Git files
+.git/
+.github/
+
+# Build artifacts that shouldn't be published
+*.tsbuildinfo
+
+# Keep only dist folder for JavaScript files
+# README and LICENSE are included via package.json files array
