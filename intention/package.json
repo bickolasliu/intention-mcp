@@ -1,11 +1,10 @@
 {
   "name": "intention-mcp",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "MCP server for tracking AI-assisted code changes and intents",
   "main": "dist/index.js",
   "bin": {
-    "intention-mcp": "./dist/index.js",
-    "intention-mcp-setup": "./dist/setup-cli.js"
+    "intention-mcp": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
