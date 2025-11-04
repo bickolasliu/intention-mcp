@@ -2,11 +2,16 @@
 # Intent Tracking Enabled
 # This repository uses the intention MCP server to track AI-assisted changes
 
-When editing files in this repository:
-- Use intention_edit for file modifications (captures reasoning)
-- Use intention_write for new files
-- Use intention_search to understand previous implementation decisions
-- Check intention_history before making major changes
-- If you use standard file operations, call intention_log afterwards
+IMPORTANT: This project has MCP tools configured. You MUST use these tools instead of standard file operations:
 
-To view intent history for a file, use intention_explain.
+When editing files in this repository:
+- Use the MCP tool "intention_edit" (NOT search_replace or edit_file) for ALL file modifications 
+- Use the MCP tool "intention_write" (NOT write_file) for creating new files
+- Use the MCP tool "intention_search" to find previous implementation decisions
+- Use the MCP tool "intention_history" to check history before major changes
+- Use the MCP tool "intention_check" before editing to see potential conflicts
+- If you accidentally use standard file operations, immediately call "intention_log" afterwards
+
+These MCP tools are available through the intention MCP server and will automatically track the reasoning behind code changes in the .intents folder.
+
+To view intent history for any file, use the MCP tool "intention_explain".

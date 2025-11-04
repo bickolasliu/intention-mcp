@@ -25,6 +25,7 @@ import {
   handleIntentionAnalyze,
 } from './tools/index.js';
 import { createIntentsFolder } from './intents/intent-storage.js';
+import { logWorkspaceInfo } from './utils/workspace.js';
 
 async function main() {
   // Handle setup command
@@ -44,6 +45,9 @@ async function main() {
     }
   );
 
+  // Log workspace information for debugging
+  logWorkspaceInfo();
+  
   // Ensure .intents folder exists
   createIntentsFolder();
 

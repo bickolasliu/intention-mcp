@@ -62,7 +62,6 @@ function configureClaudeCode(): void {
     
     config.mcpServers.intention = {
       command: 'intention-mcp',
-      args: ['--workspace', '.'],
     };
     
     fs.writeFileSync(CLAUDE_CONFIG_PATH, JSON.stringify(config, null, 2));
