@@ -28,7 +28,7 @@ const INTENT_TRACKING_RULES = `
       "action": "create|edit|delete",
       "prompt": "[what user requested]",
       "summary": "[what you did and why]",
-      "model": "[your model name]"
+      "model": "[your model identifier]"
     }
   ]
 }

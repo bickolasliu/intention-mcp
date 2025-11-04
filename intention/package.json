@@ -28,7 +28,8 @@
   "files": [
     "setup-intention.js",
     "README.md",
-    "standalone/"
+    ".cursorrules",
+    "EXAMPLE.md"
   ],
   "engines": {
     "node": ">=14.0.0"

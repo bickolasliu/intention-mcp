@@ -34,11 +34,11 @@ This project uses intent tracking to document AI-assisted code changes for bette
 ### 3. Required Workflow
 
 #### When creating a new file:
-1. Create the file using `write_file`
+1. Create the file using standard tools
 2. Create `.intents/[filepath].json` with initial intent
 
 #### When editing an existing file:
-1. Edit the file using `search_replace` or `write_file`
+1. Edit the file using standard tools
 2. Check if `.intents/[filepath].json` exists
 3. If exists: read it, append new intent, write updated array
 4. If not: create it with first intent
@@ -52,7 +52,7 @@ This project uses intent tracking to document AI-assisted code changes for bette
 
 ✅ **DO:**
 - ALWAYS create intent records - no exceptions
-- Use standard file operations (write_file, search_replace)
+- Use standard file operations
 - Generate proper UUIDs
 - Include detailed summaries for future understanding
 - Create .intents folder structure as needed
@@ -74,25 +74,16 @@ Your actions:
 {
   "intents": [{
     "id": "a7b8c9d0-e1f2-4a5b-8c9d-0e1f2a3b4c5d",
-    "timestamp": "2024-11-04T23:45:00.000Z",
+    "timestamp": "2024-11-05T10:45:00.000Z",
     "action": "create",
     "filePath": "hello.js",
     "prompt": "Create a hello.js file with a greeting function",
     "summary": "Created hello.js with greeting(name) function that returns a personalized greeting string",
     "user": "nicholasliu",
-    "model": "claude-3.5-sonnet"
+    "model": "claude-3-5-sonnet-20241022"
   }]
 }
 ```
-
-## MCP Tools Available (Optional)
-
-If the intention MCP server is running, you have access to:
-- `intention_get_template` - Get a template for intent records
-- `intention_read_history` - Read existing intent history
-- `intention_get_instructions` - Get detailed instructions
-
-These are OPTIONAL helpers. You can track intents perfectly well without them using just standard file operations.
 
 ## Why This Matters
 
