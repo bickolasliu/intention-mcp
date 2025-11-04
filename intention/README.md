@@ -1,184 +1,147 @@
-# Intention MCP Server v2.0 (Simplified)
+# Intention - Simple Intent Tracking for AI Development
 
-A lightweight MCP server that helps AI assistants track intent behind code changes, creating a clear history of AI-assisted development.
+Track why code was written and how it evolved when using AI assistants like Cursor, Claude, GitHub Copilot, and more.
 
-## 🎯 What's New in v2.0
+## What is this?
 
-**Completely redesigned for simplicity and reliability:**
-- AI uses standard file operations (no complex MCP tools)
-- No permission prompts or failures
-- Works reliably across all projects
-- Transparent intent tracking you can see
+A dead-simple tool that configures AI assistants to automatically track their code changes. No servers, no complex setup - just a script that adds tracking instructions to your project.
 
-## 🚀 Quick Start
-
-### Install
+## Installation
 
 ```bash
-npm install -g intention-mcp
+npx setup-intention
 ```
 
-### Configure for Cursor
+That's it. The script will:
+1. Detect which AI assistants you use
+2. Add intent tracking instructions to their config files
+3. Create a `.intents` folder for tracking
 
-```bash
-# Add to ~/.cursor/mcp.json
-{
-  "mcpServers": {
-    "intention": {
-      "command": "intention-mcp"
-    }
-  }
-}
-```
+## How it Works
 
-### Configure for Claude Desktop
+After setup, whenever an AI assistant creates or modifies files, it will also create a corresponding file in `.intents/` documenting:
+- **What** was requested (the prompt)
+- **When** it happened (timestamp)
+- **Why** it was done (summary)
+- **Who** requested it (if available)
 
-```bash
-# Add to ~/.claude.json
-{
-  "mcpServers": {
-    "intention": {
-      "command": "intention-mcp"
-    }
-  }
-}
-```
+### Example
 
-### Add to Your Project
+When you ask: "Create an Express server in app.js"
 
-Copy `.cursorrules` to your project root:
+The AI creates:
+- `app.js` - Your Express server
+- `.intents/app.js.json` - Documentation of why it was created
 
-```bash
-curl -o .cursorrules https://raw.githubusercontent.com/your-repo/intention-mcp/main/.cursorrules
-```
-
-That's it! The AI will now track all code changes in `.intents` folder.
-
-## 📁 How It Works
-
-The AI creates intent records for every file operation:
-
-```
-your-project/
-├── src/
-│   └── app.js          (your code)
-└── .intents/
-    └── src/
-        └── app.js.json (intent history)
-```
-
-Each intent record includes:
-- **id**: Unique identifier
-- **timestamp**: When the change was made
-- **action**: create/edit/delete
-- **prompt**: What the user requested
-- **summary**: What was actually done
-- **model**: Which AI model made the change
-
-## 🤖 For AI Assistants
-
-When working in a project with intention tracking:
-
-1. **Check for `.cursorrules`** - Follow the intent tracking instructions
-2. **Use standard tools** - `write_file`, `search_replace`, etc.
-3. **Create intent records** - Mirror structure in `.intents` folder
-4. **Be consistent** - Track EVERY file operation
-
-## 💡 Example
-
-User: "Create a hello.js file with a greeting function"
-
-AI creates two files:
-
-**hello.js:**
-```javascript
-function greeting(name) {
-  return `Hello, ${name}!`;
-}
-
-module.exports = { greeting };
-```
-
-**.intents/hello.js.json:**
 ```json
 {
   "intents": [{
     "id": "550e8400-e29b-41d4-a716-446655440000",
-    "timestamp": "2024-11-04T20:45:00Z",
+    "timestamp": "2024-11-05T10:30:00Z",
     "action": "create",
-    "prompt": "Create a hello.js file with a greeting function",
-    "summary": "Created greeting function that accepts name parameter and returns personalized message",
-    "model": "claude-3.5-sonnet"
+    "prompt": "Create an Express server in app.js",
+    "summary": "Created Express server with basic routing and middleware setup"
   }]
 }
 ```
 
-## 🛠️ MCP Tools (Optional Helpers)
+## Supported AI Assistants
 
-The MCP server provides optional guidance tools:
+- ✅ **Cursor** - `.cursorrules`
+- ✅ **Claude Desktop** - `.claude_instructions`
+- ✅ **GitHub Copilot** - `.github/copilot-instructions.md`
+- ✅ **Aider** - `.aider.conf.yml`
+- ✅ **Continue** - `.continue/config.json`
+- 🔧 More coming soon!
 
-- **`intention_get_template`** - Returns a template for intent records
-- **`intention_read_history`** - Reads existing intent history
-- **`intention_get_instructions`** - Returns tracking instructions
+## Manual Setup
 
-These are helpers only - the AI does all the actual file operations.
+If you prefer manual setup or want to customize, just add these instructions to your AI assistant's config file:
 
-## 📊 Viewing Intent History
+```markdown
+# Intent Tracking
+
+For every file operation:
+1. Perform the operation using standard tools
+2. Create/update `.intents/[filepath].json` with:
+   - id: unique identifier
+   - timestamp: ISO 8601 timestamp
+   - action: create/edit/delete
+   - prompt: what was requested
+   - summary: what was done and why
+```
+
+## Viewing Intent History
 
 ```bash
 # See all tracked files
 find .intents -name "*.json"
 
-# View intents for a specific file
-cat .intents/src/app.js.json | jq .
+# View specific file history
+cat .intents/src/app.js.json | python -m json.tool
 
 # Count changes per file
 for f in .intents/**/*.json; do
-  echo "$f: $(jq '.intents | length' $f) changes"
+  echo "$f: $(grep -c '"id"' $f) changes"
 done
 ```
 
-## 🔄 Migration from v1.x
+## FAQ
 
-Version 2.0 is a complete redesign. To migrate:
+**Q: Do I need a server running?**  
+No! This is just configuration. The AI assistants do all the work using their existing file operations.
 
-1. **Update the package**: `npm update -g intention-mcp`
-2. **Update `.cursorrules`** in your projects
-3. **Remove old MCP tools** from any custom configurations
-4. **Existing `.intents` folders** remain compatible
+**Q: Will this slow down the AI?**  
+No. It's just one extra file write, which is negligible.
 
-## ⭐ Why This Approach?
+**Q: Can I customize the tracking format?**  
+Yes! Just edit the instructions in your AI assistant's config file.
 
-### Reliability
-- No complex file operations in MCP
-- No permission issues
-- No mysterious failures
+**Q: What if I don't want to track certain files?**  
+The AI will respect your requests. Just tell it not to track specific operations.
 
-### Simplicity
-- AI uses tools it already knows
-- Clear, visible process
-- Easy to debug
+**Q: Is my code being sent anywhere?**  
+No. Everything stays local in your `.intents` folder.
 
-### Transparency
-- See exactly what's being tracked
-- Standard JSON files you can read
-- No hidden complexity
+## Why Intent Tracking?
 
-## 🤝 Contributing
+- **Understand decisions** - Know why code was written a certain way
+- **Team collaboration** - Share context about AI-assisted changes
+- **Code archaeology** - Understand historical decisions
+- **Quality assurance** - Review AI-generated code more effectively
+- **Knowledge transfer** - New team members understand the codebase faster
 
-We welcome contributions! The codebase is now much simpler:
-- `src/index.ts` - Main MCP server (guidance only)
-- `src/types.ts` - TypeScript definitions
-- `.cursorrules` - Instructions for AI
+## The Philosophy
 
-## 📄 License
+The best tools are invisible. Instead of complex servers and APIs, this tool just adds a simple instruction: "Hey AI, also write down what you did and why."
 
-MIT
+That's it. Simple, effective, and it just works.
 
-## 🙏 Acknowledgments
+## Contributing
 
-Thanks to the Anthropic team for MCP and to all users who provided feedback that led to this simpler, better design.
+This tool is intentionally simple. If you have ideas for improvements:
+- Keep it simple
+- No servers or complex dependencies
+- Must work with standard AI file operations
+
+## License
+
+MIT - Use it however you want!
+
+## Changelog
+
+### v3.0.0
+- Complete rewrite: removed MCP server entirely
+- Now just a simple setup script
+- Supports multiple AI assistants
+- Zero dependencies, zero complexity
+
+### v2.0.0
+- Simplified MCP approach (still too complex)
+
+### v1.0.0
+- Initial MCP server (overly complex)
 
 ---
 
-**Remember**: The best tools are invisible. Intention v2.0 lets AI assistants naturally track their work without complex APIs or permissions. Just simple, reliable intent tracking that works.
+*Sometimes the best solution is barely a solution at all - just a good instruction.*

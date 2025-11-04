@@ -1,37 +1,5 @@
-# Dependencies
 node_modules/
-
-# Build output
-dist/
-*.js
-*.d.ts
-*.d.ts.map
-*.js.map
-
-# Logs
+.intents/
 *.log
-npm-debug.log*
-
-# Coverage
-coverage/
-.nyc_output/
-
-# IDE
-.vscode/
-.idea/
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Environment
-.env
-.env.local
-
-# Temporary files
-*.tmp
-*.temp
-
-# Keep TypeScript source files
-!src/**/*.ts
-!jest.config.js
+test-*
