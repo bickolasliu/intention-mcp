@@ -1,0 +1,12 @@
+
+# Intent Tracking Enabled
+# This repository uses the intention MCP server to track AI-assisted changes
+
+When editing files in this repository:
+- Use intention_edit for file modifications (captures reasoning)
+- Use intention_write for new files
+- Use intention_search to understand previous implementation decisions
+- Check intention_history before making major changes
+- If you use standard file operations, call intention_log afterwards
+
+To view intent history for a file, use intention_explain.

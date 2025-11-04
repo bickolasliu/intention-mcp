@@ -333,12 +333,7 @@ Contributions are welcome! Please:
 
 ## License
 
-Proprietary - All rights reserved
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/intention-mcp/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/intention-mcp/discussions)
+MIT License - See [LICENSE](LICENSE) file for details
 
 ## Roadmap
 
@@ -351,4 +346,4 @@ Proprietary - All rights reserved
 
 ---
 
-Built with ❤️ to make AI-assisted development more collaborative and transparent.
+Built to make AI-assisted development more collaborative and transparent.
