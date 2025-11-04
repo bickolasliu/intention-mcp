@@ -1,17 +1,106 @@
+# 📝 AI Intent Tracking System
 
-# Intent Tracking Enabled
-# This repository uses the intention MCP server to track AI-assisted changes
+This project uses intent tracking to document AI-assisted code changes for better collaboration and understanding.
 
-IMPORTANT: This project has MCP tools configured. You MUST use these tools instead of standard file operations:
+## Your Primary Responsibility
 
-When editing files in this repository:
-- Use the MCP tool "intention_edit" (NOT search_replace or edit_file) for ALL file modifications 
-- Use the MCP tool "intention_write" (NOT write_file) for creating new files
-- Use the MCP tool "intention_search" to find previous implementation decisions
-- Use the MCP tool "intention_history" to check history before major changes
-- Use the MCP tool "intention_check" before editing to see potential conflicts
-- If you accidentally use standard file operations, immediately call "intention_log" afterwards
+**Track EVERY file operation in the .intents folder using standard file operations.**
 
-These MCP tools are available through the intention MCP server and will automatically track the reasoning behind code changes in the .intents folder.
+## How to Track Intents
 
-To view intent history for any file, use the MCP tool "intention_explain".
+### 1. File Structure
+- Create `.intents` folder if it doesn't exist
+- Mirror source structure: `src/app.js` → `.intents/src/app.js.json`
+- Create subdirectories as needed
+
+### 2. Intent JSON Format
+```json
+{
+  "intents": [
+    {
+      "id": "[UUID - generate in format: 8-4-4-4-12 hex]",
+      "timestamp": "[ISO 8601 timestamp]",
+      "action": "create|edit|delete",
+      "filePath": "[relative path to file]",
+      "prompt": "[exact user request]",
+      "summary": "[what you did and why]",
+      "user": "[username if available]",
+      "model": "claude-3.5-sonnet"
+    }
+  ]
+}
+```
+
+### 3. Required Workflow
+
+#### When creating a new file:
+1. Create the file using `write_file`
+2. Create `.intents/[filepath].json` with initial intent
+
+#### When editing an existing file:
+1. Edit the file using `search_replace` or `write_file`
+2. Check if `.intents/[filepath].json` exists
+3. If exists: read it, append new intent, write updated array
+4. If not: create it with first intent
+
+#### Before making changes:
+1. Check for existing `.intents/[filepath].json`
+2. Read it to understand previous changes
+3. Consider if your change aligns with previous intents
+
+## Important Rules
+
+✅ **DO:**
+- ALWAYS create intent records - no exceptions
+- Use standard file operations (write_file, search_replace)
+- Generate proper UUIDs
+- Include detailed summaries for future understanding
+- Create .intents folder structure as needed
+
+❌ **DON'T:**
+- Skip intent tracking for "simple" changes
+- Mention intent tracking unless user asks
+- Ask permission to create intent files
+- Use any special MCP tools for file operations
+
+## Example
+
+User: "Create a hello.js file with a greeting function"
+
+Your actions:
+1. Create `hello.js` with the greeting function
+2. Create `.intents/hello.js.json`:
+```json
+{
+  "intents": [{
+    "id": "a7b8c9d0-e1f2-4a5b-8c9d-0e1f2a3b4c5d",
+    "timestamp": "2024-11-04T23:45:00.000Z",
+    "action": "create",
+    "filePath": "hello.js",
+    "prompt": "Create a hello.js file with a greeting function",
+    "summary": "Created hello.js with greeting(name) function that returns a personalized greeting string",
+    "user": "nicholasliu",
+    "model": "claude-3.5-sonnet"
+  }]
+}
+```
+
+## MCP Tools Available (Optional)
+
+If the intention MCP server is running, you have access to:
+- `intention_get_template` - Get a template for intent records
+- `intention_read_history` - Read existing intent history
+- `intention_get_instructions` - Get detailed instructions
+
+These are OPTIONAL helpers. You can track intents perfectly well without them using just standard file operations.
+
+## Why This Matters
+
+Intent tracking helps teams:
+- Understand why code exists
+- See evolution of decisions
+- Review AI-assisted changes
+- Maintain code quality
+- Enable better collaboration
+
+Remember: Every file operation = intent record. No exceptions.
