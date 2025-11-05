@@ -21,7 +21,7 @@ Configuring intent tracking...
 
   ✓ Cursor: Added intent tracking to existing .cursorrules
   ✓ Created .intents folder
-  ✓ Added .intents to .gitignore
+  ✓ Created .intents/README.md
 
 ✅ Intent tracking configured successfully!
 ```
@@ -50,7 +50,7 @@ module.exports = { greeting };
     "action": "create",
     "prompt": "Create a hello.js file with a greeting function",
     "summary": "Created greeting function that accepts name parameter and returns greeting string",
-    "model": "claude-3.5-sonnet"
+    "model": "claude-3-5-sonnet-20241022"
   }]
 }
 ```
@@ -61,6 +61,15 @@ module.exports = { greeting };
 cat .intents/hello.js.json | python -m json.tool
 ```
 
+## Step 5: Commit to Version Control
+
+```bash
+git add .intents/
+git commit -m "Add intent tracking for hello.js"
+```
+
+The `.intents` folder should be committed to your repository so your team can understand the evolution of AI-assisted code.
+
 ## That's It!
 
-No servers. No configuration. No complexity. Just automatic tracking of why code was written.
+No servers. No configuration. No complexity. Just automatic tracking of why code was written, shared with your team through version control.
