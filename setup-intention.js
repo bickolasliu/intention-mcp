@@ -25,9 +25,8 @@ const AI_CONFIGS = [
   },
   {
     name: 'Claude Code',
-    file: '.claude/instructions.md',
+    file: 'CLAUDE.md',
     description: 'Claude Code CLI',
-    needsDir: true,
     format: 'markdown'
   }
 ];
@@ -201,7 +200,7 @@ Usage:
 
 Supported AI Assistants:
   * Cursor (.cursorrules)
-  * Claude Code (.claude/instructions.md)
+  * Claude Code (CLAUDE.md)
 `);
     process.exit(0);
   }
