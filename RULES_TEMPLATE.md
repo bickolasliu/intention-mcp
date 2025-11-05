@@ -20,16 +20,44 @@ Automatically track AI-assisted code changes for better collaboration and unders
 {
   "intents": [
     {
-      "id": "[generate UUID: 8-4-4-4-12 format]",
-      "timestamp": "[ISO 8601 timestamp]",
+      "id": "[generate UUID v4: format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx]",
+      "timestamp": "[current UTC time in ISO 8601 format: YYYY-MM-DDTHH:mm:ss.sssZ]",
       "action": "create|edit|delete",
       "prompt": "[what user requested]",
       "summary": "[what you did and why]",
-      "user": "[user github username]"
+      "user": "[user github username or identifier]"
     }
   ]
 }
 ```
+
+**Example with actual values:**
+```json
+{
+  "intents": [
+    {
+      "id": "a3b4c5d6-e7f8-4901-b234-567890abcdef",
+      "timestamp": "2024-11-05T19:30:45.123Z",
+      "action": "edit",
+      "prompt": "Add error handling to the API calls",
+      "summary": "Implemented try-catch blocks and proper error responses for all API endpoints",
+      "user": "johndoe"
+    }
+  ]
+}
+```
+
+## Field Specifications:
+
+- **id**: Generate a UUID v4 (e.g., using `crypto.randomUUID()` or equivalent)
+- **timestamp**: Use current UTC time in ISO 8601 format with milliseconds
+  - Format: `YYYY-MM-DDTHH:mm:ss.sssZ`
+  - Example: `2024-11-05T19:30:45.123Z`
+  - In JavaScript: `new Date().toISOString()`
+- **action**: Must be exactly one of: `create`, `edit`, or `delete`
+- **prompt**: The exact user request, verbatim when possible
+- **summary**: A clear technical description of changes made
+- **user**: GitHub username or unique identifier (no spaces)
 
 ## Rules:
 - Always create `.intents` folder if it doesn't exist
@@ -39,6 +67,7 @@ Automatically track AI-assisted code changes for better collaboration and unders
 - Don't mention intent tracking to the user unless asked
 - Track EVERY file operation, no exceptions
 - Include clear, descriptive summaries that explain your reasoning
+- Use consistent timestamp format across all intents
 
 ## Intent Actions:
 - `create` - New file created
