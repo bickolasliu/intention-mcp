@@ -50,17 +50,11 @@ const AI_CONFIGS = [
     description: 'Cursor IDE'
   },
   {
-    name: 'Claude Code CLI',
-    file: '.claude-project.yaml',
-    description: 'Claude Code CLI (claude code/chat commands)',
-    format: 'yaml',
-    template: `name: ${path.basename(process.cwd())}
-instructions: |
-${INTENT_TRACKING_RULES.split('\n').map(line => '  ' + line).join('\n')}
-
-# Optional: Specify model and temperature
-# model: claude-3-5-sonnet-20241022
-# temperature: 0.3`
+    name: 'Claude Code',
+    file: '.claude/instructions.md',
+    description: 'Claude Code (Desktop IDE)',
+    needsDir: true,
+    format: 'markdown'
   }
 ];
 
@@ -232,7 +226,7 @@ Usage:
 
 Supported AI Assistants:
   • Cursor (.cursorrules)
-  • Claude Code CLI (.claude-project.yaml)
+  • Claude Code (.claude/instructions.md)
 
 Learn more: https://github.com/[your-repo]/intention
 `);
