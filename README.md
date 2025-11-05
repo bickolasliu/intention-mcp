@@ -44,8 +44,8 @@ The coding agent creates:
 
 ## Supported AI Assistants
 
-- ✅ **Cursor** - `.cursorrules`
-- ✅ **Claude Code** - `.claude/instructions.md` (Desktop IDE)
+- **Cursor** - `.cursorrules`
+- **Claude Code** - `.claude/instructions.md` (Desktop IDE)
 
 
 ## Viewing Intent History

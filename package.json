@@ -1,6 +1,6 @@
 {
   "name": "setup-intention",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Intent tracking for Cursor and Claude Code - no server required",
   "main": "setup-intention.js",
   "bin": {
@@ -20,14 +20,10 @@
   ],
   "author": "Nicholas Liu",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-repo/intention.git"
-  },
   "files": [
     "setup-intention.js",
     "README.md",
-    ".cursorrules",
+    "RULES_TEMPLATE.md",
     "EXAMPLE.md"
   ],
   "engines": {

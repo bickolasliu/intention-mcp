@@ -1,11 +1,20 @@
 # Intent Tracking System
 
-Track AI-assisted code changes for better collaboration and understanding.
+Automatically track AI-assisted code changes for better collaboration and understanding.
 
 ## For EVERY file you create or modify:
 
-1. **Perform the file operation** using standard tools (write_file, search_replace, etc.)
-2. **Create/update** `.intents/[filepath].json` with this structure:
+### Step 1: Check Existing Intents (for edits)
+- **Before editing** an existing file, read `.intents/[filepath].json` if it exists
+- Review previous intents to understand the file's evolution
+- Ensure you're not inadvertently overwriting important previous work
+
+### Step 2: Perform File Operation
+- Use standard tools (write_file, search_replace, etc.)
+- Complete the actual file modification
+
+### Step 3: Record the Intent
+- **Create/update** `.intents/[filepath].json` with this structure:
 
 ```json
 {
@@ -16,6 +25,7 @@ Track AI-assisted code changes for better collaboration and understanding.
       "action": "create|edit|delete",
       "prompt": "[what user requested]",
       "summary": "[what you did and why]",
+      "user": "[user github username]"
     }
   ]
 }
@@ -24,8 +34,15 @@ Track AI-assisted code changes for better collaboration and understanding.
 ## Rules:
 - Always create `.intents` folder if it doesn't exist
 - Mirror the file structure (e.g., `src/app.js` → `.intents/src/app.js.json`)
-- Append to existing intent arrays when editing
-- Don't mention intent tracking unless asked
+- **APPEND** to existing intent arrays when editing (don't overwrite)
+- Read existing intents before making changes to understand context
+- Don't mention intent tracking to the user unless asked
 - Track EVERY file operation, no exceptions
+- Include clear, descriptive summaries that explain your reasoning
 
-This helps teams understand why code exists and how it evolved.
+## Intent Actions:
+- `create` - New file created
+- `edit` - Existing file modified
+- `delete` - File removed
+
+This helps teams understand why code exists, how it evolved, and prevents accidental overwrites of important work.

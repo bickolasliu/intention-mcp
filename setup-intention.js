@@ -9,39 +9,13 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-// The intent tracking instructions
-const INTENT_TRACKING_RULES = `
-# Intent Tracking System
-# Automatically track AI-assisted code changes for better collaboration
-
-## For EVERY file you create or modify:
-
-1. **Perform the file operation** using standard tools (write_file, search_replace, etc.)
-2. **Create/update** \`.intents/[filepath].json\` with this structure:
-
-\`\`\`json
-{
-  "intents": [
-    {
-      "id": "[generate UUID: 8-4-4-4-12 format]",
-      "timestamp": "[ISO 8601 timestamp]",
-      "action": "create|edit|delete",
-      "prompt": "[what user requested]",
-      "summary": "[what you did and why]",
-      "user": "[your username]"
-    }
-  ]
+// Load intent tracking rules from template file
+let INTENT_TRACKING_RULES;
+try {
+  INTENT_TRACKING_RULES = fs.readFileSync(path.join(__dirname, 'RULES_TEMPLATE.md'), 'utf8');
+} catch (error) {
+  throw new Error('RULES_TEMPLATE.md not found. Please create the template file to proceed.');
 }
-\`\`\`
-
-## Rules:
-- Always create \`.intents\` folder if it doesn't exist
-- Mirror the file structure (e.g., \`src/app.js\` → \`.intents/src/app.js.json\`)
-- Append to existing intent arrays when editing
-- Don't mention intent tracking unless asked
-- Track EVERY file operation, no exceptions
-
-This helps teams understand why code exists and how it evolved.`;
 
 const AI_CONFIGS = [
   {
@@ -52,7 +26,7 @@ const AI_CONFIGS = [
   {
     name: 'Claude Code',
     file: '.claude/instructions.md',
-    description: 'Claude Code (Desktop IDE)',
+    description: 'Claude Code CLI',
     needsDir: true,
     format: 'markdown'
   }
@@ -101,31 +75,32 @@ async function addToFile(config, projectPath = '.') {
     
     // Check if intent tracking is already added
     if (content.includes('Intent Tracking') || content.includes('intent tracking')) {
-      console.log(`  ✓ ${config.name}: Intent tracking already configured`);
+      console.log(`  [OK] ${config.name}: Intent tracking already configured`);
       return;
     }
 
     // Append to existing file
     const separator = config.format === 'yaml' ? '\n\n' : '\n\n---\n\n';
-    const updatedContent = content + separator + 
-      (config.template || INTENT_TRACKING_RULES);
+    const updatedContent = content + separator + INTENT_TRACKING_RULES;
     
     await fs.promises.writeFile(filePath, updatedContent);
-    console.log(`  ✓ ${config.name}: Added intent tracking to existing ${config.file}`);
+    console.log(`  [OK] ${config.name}: Added intent tracking to existing ${config.file}`);
   } else {
     // Create new file
-    const content = config.template || INTENT_TRACKING_RULES;
+    const content = INTENT_TRACKING_RULES;
     const finalContent = config.format === 'json' 
       ? JSON.stringify(content, null, 2)
       : content;
     
     await fs.promises.writeFile(filePath, finalContent);
-    console.log(`  ✓ ${config.name}: Created ${config.file} with intent tracking`);
+    console.log(`  [OK] ${config.name}: Created ${config.file} with intent tracking`);
   }
 }
 
 async function setupIntentTracking(projectPath = '.') {
-  console.log('\n🎯 Intention - Simple Intent Tracking for AI Development\n');
+  console.log('\n========================================');  
+  console.log('INTENTION - Intent Tracking for Collaborative Vibe Coding');
+  console.log('========================================\n');
   
   // Check which AI tools are being used
   console.log('Detecting AI assistant configurations...\n');
@@ -160,7 +135,7 @@ async function setupIntentTracking(projectPath = '.') {
   } else {
     console.log('Found existing configurations for:');
     detectedConfigs.forEach(config => {
-      console.log(`  • ${config.name}`);
+      console.log(`  * ${config.name}`);
     });
     
     const proceed = await question('\nAdd intent tracking to these? (y/n): ');
@@ -181,7 +156,7 @@ async function setupIntentTracking(projectPath = '.') {
   const intentsPath = path.join(projectPath, '.intents');
   if (!await fileExists(intentsPath)) {
     await ensureDirectory(intentsPath);
-    console.log('\n  ✓ Created .intents folder');
+    console.log('\n  [OK] Created .intents folder');
     
     // Create README in .intents folder
     const readmePath = path.join(intentsPath, 'README.md');
@@ -193,17 +168,17 @@ Each JSON file corresponds to a source file and tracks:
 - What was requested (prompt)
 - When it was done (timestamp)
 - Why it was done (summary)
-- Which AI made the change (model)
+- Which user made the change (user)
 
 This helps the team understand the evolution of the codebase and the reasoning behind AI-generated code.
 
 **This folder should be committed to version control for team collaboration.**`;
     
     await fs.promises.writeFile(readmePath, intentsReadme);
-    console.log('  ✓ Created .intents/README.md');
+    console.log('  [OK] Created .intents/README.md');
   }
 
-  console.log('\n✅ Intent tracking configured successfully!\n');
+  console.log('\n[SUCCESS] Intent tracking configured successfully!\n');
   console.log('Your AI assistants will now track their changes in the .intents folder.');
   console.log('\nTo view intent history:');
   console.log('  cat .intents/[filename].json | python -m json.tool');
@@ -225,10 +200,8 @@ Usage:
   npx setup-intention --help    Show this help
 
 Supported AI Assistants:
-  • Cursor (.cursorrules)
-  • Claude Code (.claude/instructions.md)
-
-Learn more: https://github.com/[your-repo]/intention
+  * Cursor (.cursorrules)
+  * Claude Code (.claude/instructions.md)
 `);
     process.exit(0);
   }
