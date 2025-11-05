@@ -1,0 +1,22 @@
+{
+  "intents": [
+    {
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "timestamp": "2024-11-04T18:00:00.000Z",
+      "action": "edit",
+      "prompt": "Rewrite README for v2.0 simplified MCP approach",
+      "summary": "Updated README to document simplified v2.0 architecture where AI uses standard tools and MCP provides guidance only",
+      "model": "claude-3-5-sonnet-20241022",
+      "user": "nicholasliu"
+    },
+    {
+      "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+      "timestamp": "2024-11-05T02:50:00.000Z",
+      "action": "edit", 
+      "prompt": "Update README for v3.0 - abandon MCP server, just setup script",
+      "summary": "Completely rewrote README to document the simple setup script approach with no server required, just configuration of AI instruction files",
+      "model": "claude-3-5-sonnet-20241022",
+      "user": "nicholasliu"
+    }
+  ]
+}

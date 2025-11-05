@@ -188,16 +188,25 @@ async function setupIntentTracking(projectPath = '.') {
   if (!await fileExists(intentsPath)) {
     await ensureDirectory(intentsPath);
     console.log('\n  ✓ Created .intents folder');
-  }
+    
+    // Create README in .intents folder
+    const readmePath = path.join(intentsPath, 'README.md');
+    const intentsReadme = `# Intent Tracking
 
-  // Add .intents to .gitignore if it exists
-  const gitignorePath = path.join(projectPath, '.gitignore');
-  if (await fileExists(gitignorePath)) {
-    const gitignore = await fs.promises.readFile(gitignorePath, 'utf8');
-    if (!gitignore.includes('.intents')) {
-      await fs.promises.appendFile(gitignorePath, '\n# AI intent tracking\n.intents/\n');
-      console.log('  ✓ Added .intents to .gitignore');
-    }
+This folder contains the history of AI-assisted code changes.
+
+Each JSON file corresponds to a source file and tracks:
+- What was requested (prompt)
+- When it was done (timestamp)
+- Why it was done (summary)
+- Which AI made the change (model)
+
+This helps the team understand the evolution of the codebase and the reasoning behind AI-generated code.
+
+**This folder should be committed to version control for team collaboration.**`;
+    
+    await fs.promises.writeFile(readmePath, intentsReadme);
+    console.log('  ✓ Created .intents/README.md');
   }
 
   console.log('\n✅ Intent tracking configured successfully!\n');

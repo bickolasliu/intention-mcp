@@ -82,6 +82,16 @@ for f in .intents/**/*.json; do
 done
 ```
 
+## Version Control
+
+**Important:** The `.intents` folder should be committed to your repository! This allows your team to:
+- Understand why code was written
+- See the evolution of AI-assisted changes
+- Review AI decisions
+- Maintain accountability
+
+Don't add `.intents` to `.gitignore` - it's meant for collaboration.
+
 ## FAQ
 
 **Q: Do I need a server running?**  

@@ -1,0 +1,22 @@
+{
+  "intents": [
+    {
+      "id": "8f7e6d5c-4b3a-2a1f-9e8d-7c6b5a4f3e2d",
+      "timestamp": "2024-11-05T02:45:00.000Z",
+      "action": "create",
+      "prompt": "Abandon the MCP server entirely and create a setup script that writes/edits cursorrules and Claude instruction files",
+      "summary": "Created setup-intention.js that detects AI assistants and adds intent tracking instructions to their config files - supports Cursor, Claude, Copilot, Aider, and Continue",
+      "model": "claude-3-5-sonnet-20241022",
+      "user": "nicholasliu"
+    },
+    {
+      "id": "4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8a9b",
+      "timestamp": "2024-11-05T04:00:00.000Z",
+      "action": "edit",
+      "prompt": "Add support for Claude Code CLI which uses .claude-project.yaml files",
+      "summary": "Added Claude Code CLI configuration to AI_CONFIGS array with proper YAML format for .claude-project.yaml files, updated documentation to reflect both Claude Desktop and Claude Code CLI support",
+      "model": "claude-3-5-sonnet-20241022",
+      "user": "nicholasliu"
+    }
+  ]
+}

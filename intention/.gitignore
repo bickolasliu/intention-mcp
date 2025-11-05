@@ -1,5 +1,6 @@
 node_modules/
-.intents/
 *.log
 .DS_Store
 test-*
+
+# Note: .intents/ is NOT ignored - it should be committed for collaboration
