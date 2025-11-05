@@ -28,7 +28,7 @@ const INTENT_TRACKING_RULES = `
       "action": "create|edit|delete",
       "prompt": "[what user requested]",
       "summary": "[what you did and why]",
-      "model": "[your model identifier]"
+      "user": "[your username]"
     }
   ]
 }
@@ -50,34 +50,17 @@ const AI_CONFIGS = [
     description: 'Cursor IDE'
   },
   {
-    name: 'Claude Desktop', 
-    file: '.claude_instructions',
-    description: 'Claude Desktop App'
-  },
-  {
-    name: 'Aider',
-    file: '.aider.conf.yml',
-    description: 'Aider CLI',
+    name: 'Claude Code CLI',
+    file: '.claude-project.yaml',
+    description: 'Claude Code CLI (claude code/chat commands)',
     format: 'yaml',
-    template: `# Aider configuration with intent tracking
-message: |
-${INTENT_TRACKING_RULES.split('\n').map(line => '  ' + line).join('\n')}`
-  },
-  {
-    name: 'GitHub Copilot',
-    file: '.github/copilot-instructions.md',
-    description: 'GitHub Copilot',
-    needsDir: true
-  },
-  {
-    name: 'Continue',
-    file: '.continue/config.json',
-    description: 'Continue.dev',
-    format: 'json',
-    needsDir: true,
-    template: {
-      "rules": INTENT_TRACKING_RULES
-    }
+    template: `name: ${path.basename(process.cwd())}
+instructions: |
+${INTENT_TRACKING_RULES.split('\n').map(line => '  ' + line).join('\n')}
+
+# Optional: Specify model and temperature
+# model: claude-3-5-sonnet-20241022
+# temperature: 0.3`
   }
 ];
 
@@ -240,10 +223,7 @@ Usage:
 
 Supported AI Assistants:
   • Cursor (.cursorrules)
-  • Claude Desktop (.claude_instructions)
-  • GitHub Copilot (.github/copilot-instructions.md)
-  • Aider (.aider.conf.yml)
-  • Continue (.continue/config.json)
+  • Claude Code CLI (.claude-project.yaml)
 
 Learn more: https://github.com/[your-repo]/intention
 `);

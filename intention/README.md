@@ -1,6 +1,6 @@
 # Intention - Simple Intent Tracking for AI Development
 
-Track why code was written and how it evolved when using AI assistants like Cursor, Claude, GitHub Copilot, and more.
+Track why code was written and how it evolved when using Cursor or Claude Code CLI.
 
 ## What is this?
 
@@ -48,11 +48,7 @@ The AI creates:
 ## Supported AI Assistants
 
 - ✅ **Cursor** - `.cursorrules`
-- ✅ **Claude Desktop** - `.claude_instructions`
-- ✅ **GitHub Copilot** - `.github/copilot-instructions.md`
-- ✅ **Aider** - `.aider.conf.yml`
-- ✅ **Continue** - `.continue/config.json`
-- 🔧 More coming soon!
+- ✅ **Claude Code CLI** - `.claude-project.yaml` (for `claude code`/`claude chat` commands)
 
 ## Manual Setup
 

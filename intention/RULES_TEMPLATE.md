@@ -16,7 +16,6 @@ Track AI-assisted code changes for better collaboration and understanding.
       "action": "create|edit|delete",
       "prompt": "[what user requested]",
       "summary": "[what you did and why]",
-      "model": "[your model identifier]"
     }
   ]
 }

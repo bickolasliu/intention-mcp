@@ -1,7 +1,7 @@
 {
   "name": "setup-intention",
-  "version": "3.0.0",
-  "description": "Simple intent tracking for AI-assisted development - no server required",
+  "version": "1.1.0",
+  "description": "Intent tracking for Cursor and Claude Code CLI - no server required",
   "main": "setup-intention.js",
   "bin": {
     "setup-intention": "./setup-intention.js"
@@ -13,8 +13,7 @@
     "ai",
     "intent-tracking",
     "cursor",
-    "claude",
-    "copilot",
+    "claude-code-cli",
     "development",
     "collaboration",
     "cursorrules"
